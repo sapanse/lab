@@ -39,28 +39,30 @@ copied course questions or answers. No commits or pushes unless requested.
 
 ## Course reference key
 
-All links point to the copied course's `docs` directories. The numbers in daily
-rows are the filename prefixes in those directories, not Udemy lecture numbers.
+Course section links open the source repository on GitHub, so they work both
+in GitHub and in your editor's Markdown preview. Your local copy remains at
+`../../certified-kubernetes-administrator-course/docs` relative to this file.
+The numbers in daily rows are filename prefixes, not Udemy lecture numbers.
 For example, **C02** means `02-Core-Concepts/02-Cluster-Architecture.md`.
 Match Udemy lessons by topic title. A practice file is a reference for review,
 not an instruction to read its solution before trying the exercise.
 
-| Key | Local course section |
+| Key | Course section on GitHub |
 | --- | --- |
-| C | [02-Core-Concepts](../../certified-kubernetes-administrator-course/docs/02-Core-Concepts/) |
-| S | [03-Scheduling](../../certified-kubernetes-administrator-course/docs/03-Scheduling/) |
-| L | [04-Logging-and-Monitoring](../../certified-kubernetes-administrator-course/docs/04-Logging-and-Monitoring/) |
-| A | [05-Application-Lifecycle-Management](../../certified-kubernetes-administrator-course/docs/05-Application-Lifecycle-Management/) |
-| M | [06-Cluster-Maintenance](../../certified-kubernetes-administrator-course/docs/06-Cluster-Maintenance/) |
-| R | [07-Security](../../certified-kubernetes-administrator-course/docs/07-Security/) |
-| V | [08-Storage](../../certified-kubernetes-administrator-course/docs/08-Storage/) |
-| N | [09-Networking](../../certified-kubernetes-administrator-course/docs/09-Networking/) |
-| D | [10-Design-and-Install-Kubernetes-Cluster](../../certified-kubernetes-administrator-course/docs/10-Design-and-Install-Kubernetes-Cluster/) |
-| K | [11-Install-Kubernetes-the-kubeadm-way](../../certified-kubernetes-administrator-course/docs/11-Install-Kubernetes-the-kubeadm-way/) |
-| T | [12-Troubleshooting](../../certified-kubernetes-administrator-course/docs/12-Troubleshooting/) |
-| J | [13-Other-Topics](../../certified-kubernetes-administrator-course/docs/13-Other-Topics/) |
-| LL | [14-Lightning-Labs](../../certified-kubernetes-administrator-course/docs/14-Lightning-Labs/) |
-| Mock | [15-Mock-Exams](../../certified-kubernetes-administrator-course/docs/15-Mock-Exams/) |
+| C | [02-Core-Concepts](https://github.com/kodekloudhub/certified-kubernetes-administrator-course/tree/master/docs/02-Core-Concepts/) |
+| S | [03-Scheduling](https://github.com/kodekloudhub/certified-kubernetes-administrator-course/tree/master/docs/03-Scheduling/) |
+| L | [04-Logging-and-Monitoring](https://github.com/kodekloudhub/certified-kubernetes-administrator-course/tree/master/docs/04-Logging-and-Monitoring/) |
+| A | [05-Application-Lifecycle-Management](https://github.com/kodekloudhub/certified-kubernetes-administrator-course/tree/master/docs/05-Application-Lifecycle-Management/) |
+| M | [06-Cluster-Maintenance](https://github.com/kodekloudhub/certified-kubernetes-administrator-course/tree/master/docs/06-Cluster-Maintenance/) |
+| R | [07-Security](https://github.com/kodekloudhub/certified-kubernetes-administrator-course/tree/master/docs/07-Security/) |
+| V | [08-Storage](https://github.com/kodekloudhub/certified-kubernetes-administrator-course/tree/master/docs/08-Storage/) |
+| N | [09-Networking](https://github.com/kodekloudhub/certified-kubernetes-administrator-course/tree/master/docs/09-Networking/) |
+| D | [10-Design-and-Install-Kubernetes-Cluster](https://github.com/kodekloudhub/certified-kubernetes-administrator-course/tree/master/docs/10-Design-and-Install-Kubernetes-Cluster/) |
+| K | [11-Install-Kubernetes-the-kubeadm-way](https://github.com/kodekloudhub/certified-kubernetes-administrator-course/tree/master/docs/11-Install-Kubernetes-the-kubeadm-way/) |
+| T | [12-Troubleshooting](https://github.com/kodekloudhub/certified-kubernetes-administrator-course/tree/master/docs/12-Troubleshooting/) |
+| J | [13-Other-Topics](https://github.com/kodekloudhub/certified-kubernetes-administrator-course/tree/master/docs/13-Other-Topics/) |
+| LL | [14-Lightning-Labs](https://github.com/kodekloudhub/certified-kubernetes-administrator-course/tree/master/docs/14-Lightning-Labs/) |
+| Mock | [15-Mock-Exams](https://github.com/kodekloudhub/certified-kubernetes-administrator-course/tree/master/docs/15-Mock-Exams/) |
 
 **Supplement** means no dedicated lesson was found in this local copy. Use the
 matching current Udemy lesson if available, otherwise the official references
