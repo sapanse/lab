@@ -5,6 +5,11 @@ Fallback: January 2027 if practice results show more preparation is needed
 Readiness checkpoint: December 10, 2026  
 Daily commitment: 30–45 minutes
 
+Daily assignments: [DAILY-SCHEDULE.md](DAILY-SCHEDULE.md), mapped to the
+local course notes in `../../certified-kubernetes-administrator-course/docs`.
+Use the dated daily schedule for session assignments; the weekly checklist
+below tracks coverage. Updated October 12, 2026.
+
 ## Starting point
 
 - Some day-to-day EKS experience.
@@ -21,6 +26,22 @@ Use Mumshad Mannambeth / KodeKloud's Udemy course, **Certified Kubernetes
 Administrator (CKA) with Practice Tests**, as the main course. Confirm access
 to its accompanying labs. Use its topic sections to follow this plan; course
 section numbers can change.
+
+The copied course folder contains notes and practice walkthroughs, not a
+replacement for the live lab environments. Use its lesson files as reading
+references, the Udemy lectures for explanations, and prepared course labs for
+node administration. Practice files can contain answers: attempt the lab first.
+
+The local copy has no dedicated lessons for Helm, Kustomize, Gateway API,
+CRDs/operators, or autoscaling. Keep these topics in the schedule using the
+current course or official documentation. Do not use older notes' statements
+about exam scope or versions as current exam guidance.
+
+Tutor workflow: explain the concept, give a small exercise, let me attempt it,
+then review my output and offer progressively stronger hints. Show a solution
+only after my attempt or when I ask. I perform the cluster commands and write
+the exercise manifests. Keep deliverables under `lab/cka` and temporary files
+under workspace `scratch`. Do not commit or push unless I explicitly ask.
 
 - Course: https://www.udemy.com/course/certified-kubernetes-administrator-with-practice-tests/
 - Official objectives: https://training.linuxfoundation.org/certification/certified-kubernetes-administrator-cka/
@@ -236,7 +257,8 @@ proprietary questions or exam content into a public repository.
 
 ## Next session
 
-1. Start the course's cluster architecture lesson.
+1. Follow the October 12 row in [DAILY-SCHEDULE.md](DAILY-SCHEDULE.md):
+   read/watch Cluster Architecture and connect it to the completed Lab 01.
 2. Create `cka/02-pods-architecture/README.md`.
 3. Write one sentence each explaining API server, etcd, scheduler,
    controller manager, and kubelet.
