@@ -15,6 +15,7 @@ spec:
     metadata:
       labels:
         app: web
+        environment: practice
     spec:
       containers:
       - image: nginx:stable
