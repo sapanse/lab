@@ -52,14 +52,82 @@ Expected results: three ready web Pods labelled `app=web`; the Service selector
 matches those labels, and its EndpointSlices list the ready Pods' IP addresses.
 Lab 01 documents the Pod deletion exercise for repeating this observation.
 
-## Still to practise
+## Standalone Pod exercise — October 12, 2026
 
-- [ ] Create and inspect a standalone Pod using my own YAML manifest.
-- [ ] Delete it and compare its behavior with a Deployment-managed Pod.
-- [ ] Record verification output, any errors, and cleanup steps for that exercise.
+- [x] Create and inspect a standalone Pod using my own YAML manifest.
+- [x] Delete it and compare its behavior with a Deployment-managed Pod.
+- [x] Record verification output, any errors, and cleanup steps for that exercise.
+
+### Recreate and inspect
+
+From this lab directory, confirm the local context, then apply the saved manifest:
+
+```bash
+kubectl config current-context
+kubectl --context rancher-desktop apply -f pod.yaml
+kubectl --context rancher-desktop -n cka-lab get pod standalone-web -o wide
+kubectl --context rancher-desktop -n cka-lab describe pod standalone-web
+```
+
+I generated the YAML with `kubectl run --dry-run=client -o yaml`, then edited it.
+The final manifest uses the label `app=standalone-web`, container name `nginx`,
+and image `nginx:stable`. The different label keeps it outside the `web` Service's
+selector. I also set `cka-lab` as my current context's default namespace so that
+my interactive commands could omit `-n`; the commands here are explicit for reuse.
+
+### Verification evidence
+
+Observed output (timestamps and container identifiers omitted):
+
+```text
+NAME             READY   STATUS    RESTARTS
+standalone-web   1/1     Running   0
+
+Namespace: cka-lab
+Node: sharmilapanse/192.168.127.2
+Labels: app=standalone-web
+IP: 10.42.0.31
+Container: nginx
+Image: nginx:stable
+
+Events:
+Scheduled  default-scheduler  Successfully assigned cka-lab/standalone-web to sharmilapanse
+Pulled     kubelet            Container image "nginx:stable" already present on machine
+Created    kubelet            Container created
+Started    kubelet            Container started
+```
+
+There was no `Controlled By` entry. After deleting `standalone-web` and watching
+the Pod list, I observed that it did not return. The three Deployment-managed
+`web` Pods remained. Unlike their ReplicaSet, no controller maintained the
+standalone Pod's existence.
+
+`restartPolicy: Always` controls container restarts within an existing Pod;
+it does not recreate a deleted Pod.
+
+### Corrections and assistance
+
+- Fixed the image typo `naginx` to `nginx:stable` before applying.
+- Removed duplicate `metadata.labels` blocks and changed `apps` to `app`.
+- Renamed the container to `nginx` to match the exercise; this name is a lab
+  convention, not a Kubernetes requirement.
+- Learned that `kubectl run --labels=app=standalone-web` can generate the label.
+- Used tutor guidance to review the YAML and select inspection commands;
+  performed creation, inspection, deletion and observation myself.
+- No runtime errors were reported after applying the corrected manifest.
 
 ## Cleanup
 
-This session reused Lab 01 resources and added no separate workload. Use Lab 01's
-scoped cleanup instructions when finished with those resources. Add cleanup for
-the standalone Pod after completing the next exercise.
+```bash
+kubectl --context rancher-desktop -n cka-lab delete pod standalone-web
+kubectl --context rancher-desktop -n cka-lab get pods -w
+```
+
+Press Ctrl+C to stop watching. The standalone Pod stayed deleted, completing its
+cleanup. Keep `pod.yaml` for reuse. The Lab 01 Deployment, Service and namespace
+remain; use Lab 01's cleanup instructions when finished with them.
+
+## Next practice
+
+- [ ] Recreate the standalone Pod and inspect it with `logs`, `exec` and `explain`.
+- [ ] Record what each command reveals, then delete only the standalone Pod.

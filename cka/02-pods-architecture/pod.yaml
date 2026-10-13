@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    app: standalone-web
+  name: standalone-web
+  namespace: cka-lab
+spec:
+  containers:
+  - image: nginx:stable
+    name: nginx
+    resources: {}
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+status: {}
