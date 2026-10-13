@@ -127,7 +127,91 @@ Press Ctrl+C to stop watching. The standalone Pod stayed deleted, completing its
 cleanup. Keep `pod.yaml` for reuse. The Lab 01 Deployment, Service and namespace
 remain; use Lab 01's cleanup instructions when finished with them.
 
-## Next practice
+## Logs, exec and explain practice — October 12, 2026
 
-- [ ] Recreate the standalone Pod and inspect it with `logs`, `exec` and `explain`.
-- [ ] Record what each command reveals, then delete only the standalone Pod.
+- [x] Recreate the standalone Pod and inspect it with `logs`, `exec` and `explain`.
+- [x] Record what each command reveals and clarify restart policies.
+- [x] Confirm cleanup of the recreated standalone Pod with `kubectl get pods`.
+
+### Commands and observed results
+
+With `rancher-desktop` active and its default namespace set to `cka-lab`, I ran:
+
+```bash
+kubectl apply -f pod.yaml
+kubectl get pod standalone-web
+kubectl logs standalone-web
+kubectl exec standalone-web -c nginx -- nginx -t
+kubectl explain pod.spec.containers
+kubectl explain pod.spec.restartPolicy
+kubectl get pod standalone-web -o yaml
+```
+
+The recreated Pod showed `1/1 Running` with zero restarts. Its logs showed normal
+nginx entrypoint configuration and worker-process startup; no errors appeared in
+the shared output.
+
+The configuration test returned:
+
+```text
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+```
+
+`nginx -t` ran inside the `nginx` container in the `standalone-web` Pod, not in my
+WSL environment. `-c nginx` selects the container, and `--` separates kubectl's
+arguments from the command executed inside it.
+
+### What each inspection command reveals
+
+| Command | Purpose |
+| --- | --- |
+| `get pod` | Shows a brief summary of the actual Pod's state. |
+| `describe pod` | Summarizes configuration, container state and Kubernetes events; it does not show every field. |
+| `logs` | Reads the container's standard output and standard error. |
+| `exec` | Runs a command inside a running container. |
+| `get pod -o yaml` | Shows the actual Pod object, including defaulted fields. |
+| `explain` | Documents a resource field, rather than displaying my Pod's value. |
+
+### Restart-policy clarification
+
+I initially could not find `restartPolicy` in `describe` output. Looking at the
+YAML showed it under `spec`. The Pod-level field is `pod.spec.restartPolicy`,
+and its default is `Always`:
+
+- `Always`: restart containers after successful or unsuccessful exits.
+- `OnFailure`: restart containers after unsuccessful exits.
+- `Never`: do not restart containers.
+
+The explanation of `pod.spec.containers` also included a container-level
+`restartPolicy` field. That is a separate field from the Pod-level policy and
+introduces overrides and sidecar behavior; I will revisit it with multi-container
+Pods. My manifest sets the Pod-level policy, without a container-level override.
+Restarting a container does not recreate a deleted standalone Pod.
+
+I used tutor guidance for the commands and to clarify the two policy fields;
+I ran the commands and interpreted their results myself. No runtime errors were
+reported during this inspection exercise.
+
+### Cleanup after the second creation
+
+The earlier deletion exercise was completed. I recreated the Pod for this
+inspection exercise, so it needs another cleanup:
+
+```bash
+kubectl --context rancher-desktop -n cka-lab delete pod standalone-web
+kubectl --context rancher-desktop -n cka-lab get pods
+```
+
+Confirmed output after cleanup:
+
+```text
+pod "standalone-web" deleted from cka-lab namespace
+NAME                  READY   STATUS    RESTARTS
+web-85b88cddc-cxt4c   1/1     Running   0
+web-85b88cddc-nj4dj   1/1     Running   0
+web-85b88cddc-s24ht   1/1     Running   0
+```
+
+`standalone-web` is absent and the three Deployment-managed `web` Pods remain.
+Cleanup of the second creation is complete; `pod.yaml` remains available for reuse.
